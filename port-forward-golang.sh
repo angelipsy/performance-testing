@@ -1,0 +1,1 @@
+kubectl -n poc-compare port-forward svc/golang 8002:80

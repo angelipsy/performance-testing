@@ -1,0 +1,1 @@
+kubectl -n poc-compare port-forward svc/fastapi 8001:80

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: golang
+  namespace: poc-compare
+  labels: { app: golang }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: golang } }
+  template:
+    metadata:
+      labels: { app: golang }
+    spec:
+      containers:
+        - name: golang
+          image: poc-golang:latest # replace with registry image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          resources:
+            requests: { cpu: "500m", memory: "256Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }

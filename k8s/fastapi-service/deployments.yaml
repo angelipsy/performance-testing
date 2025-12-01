@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi
+  namespace: poc-compare
+  labels: { app: fastapi }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: fastapi } }
+  template:
+    metadata:
+      labels: { app: fastapi }
+    spec:
+      containers:
+        - name: fastapi
+          image: poc-fastapi:latest # replace with registry image, e.g. ghcr.io/you/poc-fastapi:sha
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: UVICORN_WORKERS
+              value: "1"
+          resources:
+            requests: { cpu: "500m", memory: "256Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }
