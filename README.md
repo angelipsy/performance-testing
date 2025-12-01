@@ -25,7 +25,8 @@ The services are deployed on a local Kubernetes cluster (kind) and tested using 
 │   └── k6-job-stress.yaml # k6 stress test jobs
 ├── test-load-results/    # Load test results output
 ├── test-stress-results/  # Stress test results output
-├── *.sh                  # Automation scripts
+├── scripts/
+|   ├── *.sh              # Automation scripts
 └── README.md
 ```
 
@@ -41,7 +42,7 @@ The services are deployed on a local Kubernetes cluster (kind) and tested using 
 On first run, install all required dependencies:
 
 ```sh
-./installations.sh
+./scripts/installations.sh
 ```
 
 This script installs:
@@ -56,7 +57,7 @@ This script installs:
 Create a local kind cluster:
 
 ```sh
-./cluster-creation.sh
+./scripts/cluster-creation.sh
 ```
 
 ### 3. Build and Load Docker Images
@@ -64,7 +65,7 @@ Create a local kind cluster:
 Build both service Docker images and load them into the kind cluster:
 
 ```sh
-./load-docker-images-in-cluster.sh
+./scripts/load-docker-images-in-cluster.sh
 ```
 
 ### 4. Deploy Applications
@@ -72,7 +73,7 @@ Build both service Docker images and load them into the kind cluster:
 Deploy both services to the Kubernetes cluster:
 
 ```sh
-./deploy-apps.sh
+./scripts/deploy-apps.sh
 ```
 
 Wait for all pods to be created and running. You can check the status with:
@@ -88,7 +89,7 @@ kubectl -n poc-compare get pods
 Run all load tests in sequence:
 
 ```sh
-./run-tests.sh
+./scripts/run-tests.sh
 ```
 
 This executes k6 load tests for both services and saves results to `test-load-results/`.
@@ -96,7 +97,7 @@ This executes k6 load tests for both services and saves results to `test-load-re
 Run all stress tests in sequence:
 
 ```sh
-./run-stress-tests.sh
+./scripts/run-stress-tests.sh
 ```
 
 This executes k6 stress tests for both services and saves results to `test-stress-results/`.
@@ -141,12 +142,12 @@ The project includes Prometheus and Grafana for monitoring:
 
 Forward FastAPI service:
 ```sh
-./port-forward-fastapi.sh
+./scripts/port-forward-fastapi.sh
 ```
 
 Forward Go service:
 ```sh
-./port-forward-golang.sh
+./scripts/port-forward-golang.sh
 ```
 
 ### Grafana Dashboard

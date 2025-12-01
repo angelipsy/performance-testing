@@ -1,6 +1,6 @@
 # Build locally
-docker build -t poc-fastapi:latest ./apps/fastapi
-docker build -t poc-golang:latest ./apps/golang
+docker build -t poc-fastapi:latest ../apps/fastapi
+docker build -t poc-golang:latest ../apps/golang
 
 
 # Load into kind (so K8s can pull them without a registry)
