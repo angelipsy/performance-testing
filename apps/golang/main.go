@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
