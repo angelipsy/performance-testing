@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: golang
-          image: poc-golang:latest # replace with registry image
+          image: poc-golang:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000

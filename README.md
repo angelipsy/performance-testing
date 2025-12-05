@@ -15,18 +15,18 @@ The services are deployed on a local Kubernetes cluster (kind) and tested using 
 ```
 .
 ├── apps/
-│   ├── fastapi/          # FastAPI service source code
-│   └── golang/           # Go service source code
-├── k8s/                  # Kubernetes manifests
-│   ├── fastapi-service/  # FastAPI deployment and service
-│   ├── go-service/       # Go deployment and service
-│   ├── prometheus/       # Prometheus and Grafana monitoring
-│   ├── k6-job.yaml       # k6 load test jobs
-│   └── k6-job-stress.yaml # k6 stress test jobs
-├── test-load-results/    # Load test results output
-├── test-stress-results/  # Stress test results output
+│   ├── fastapi/          
+│   └── golang/           
+├── k8s/                  
+│   ├── fastapi-service/  
+│   ├── go-service/       
+│   ├── prometheus/       
+│   ├── k6-job.yaml       
+│   └── k6-job-stress.yaml 
+├── test-load-results/    
+├── test-stress-results/  
 ├── scripts/
-|   ├── *.sh              # Automation scripts
+|   ├── *.sh              
 └── README.md
 ```
 

@@ -1,7 +1,7 @@
 # kubectl -n poc-compare apply -f k8s/k6-job.yaml 
-kubectl -n poc-compare logs job/k6-golang-base -f > ../test-load-results/k6-golang-health-results.txt
+kubectl -n poc-compare logs job/k6-golang-base -f > ./test-load-results/k6-golang-health-results.txt
 sleep 3s
-kubectl -n poc-compare logs job/k6-fastapi-base -f > ../test-load-results/k6-fastapi-health-results.txt
+kubectl -n poc-compare logs job/k6-fastapi-base -f > ./test-load-results/k6-fastapi-health-results.txt
 sleep 3s
 
 

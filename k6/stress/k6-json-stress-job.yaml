@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-fastapi-json
+  namespace: poc-compare
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: k6
+          image: grafana/k6:0.47.0
+          env:
+            - name: TARGET
+              value: "http://fastapi.poc-compare.svc.cluster.local/json"
+          args: ["run", "/stress.js"]
+          volumeMounts:
+            - name: script
+              mountPath: /stress.js
+              subPath: stress.js
+      volumes:
+        - name: script
+          configMap:
+            name: k6-script
+  backoffLimit: 0
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-golang-json
+  namespace: poc-compare
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: k6
+          image: grafana/k6:0.47.0
+          env:
+            - name: TARGET
+              value: "http://golang.poc-compare.svc.cluster.local/json"
+          args: ["run", "/stress.js"]
+          volumeMounts:
+            - name: script
+              mountPath: /stress.js
+              subPath: stress.js
+      volumes:
+        - name: script
+          configMap:
+            name: k6-script
+  backoffLimit: 0

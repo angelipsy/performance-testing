@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from fastapi.responses import PlainTextResponse, StreamingResponse
+from fastapi.responses import PlainTextResponse, StreamingResponse, JSONResponse
 
-import hashlib, asyncio
+import hashlib, asyncio, os, tempfile, json
 from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
@@ -32,14 +32,60 @@ async def cpu_task(iterations: int = 100):
 
 @app.get('/io')
 async def io():
-    await asyncio.sleep(0.05)
-    return {'status': 'ok'}
+    # Write data to a temporary file
+    temp_dir = tempfile.gettempdir()
+    file_path = os.path.join(temp_dir, "io_test.txt")
+
+    # Write 1000 lines to the file
+    with open(file_path, 'w') as f:
+        for i in range(1000):
+            f.write(f"Line {i}: This is test data for I/O operations\n")
+
+    # Read the file back to simulate I/O
+    with open(file_path, 'r') as f:
+        lines = f.readlines()
+
+    # Clean up
+    os.remove(file_path)
+
+    return {'status': 'ok', 'lines_written': len(lines)}
 
 
 @app.get('/json')
 async def json_test():
-    obj = {'name': 'test', 'value': 123, 'items': list(range(5000))}
-    return obj
+    # Create a complex nested data structure
+    data = {
+        'status': 'success',
+        'timestamp': '2024-01-01T00:00:00Z',
+        'users': [
+            {
+                'id': i,
+                'name': f'User {i}',
+                'email': f'user{i}@example.com',
+                'active': i % 2 == 0,
+                'metadata': {
+                    'role': 'admin' if i % 10 == 0 else 'user',
+                    'created_at': '2024-01-01',
+                    'preferences': {
+                        'theme': 'dark',
+                        'notifications': True
+                    }
+                }
+            }
+            for i in range(1000)
+        ],
+        'pagination': {
+            'total': 1000,
+            'page': 1,
+            'per_page': 1000
+        }
+    }
+
+    # Explicitly serialize to JSON and deserialize to demonstrate serialization
+    json_string = json.dumps(data)
+    result = json.loads(json_string)
+
+    return JSONResponse(content=result)
 
 
 async def stream_gen():

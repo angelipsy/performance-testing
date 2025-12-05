@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: fastapi
-          image: poc-fastapi:latest # replace with registry image, e.g. ghcr.io/you/poc-fastapi:sha
+          image: poc-fastapi:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
